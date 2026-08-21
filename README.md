@@ -48,35 +48,140 @@ countries unauthorized access is a crime even when nothing is damaged.
 
 ---
 
+## 🔰 Introduction/ Project Summary
 
-## 🎯 Objectives
+This report contains reconnaissance (footprinting) and network discovery activities completed in the 2nd week of the internship program with Networkwalks. This lab had two primary activities:
+1. Web and domain reconnaissance against the assigned networkwalks.com domain using Kali Linux tools.
+2. Internal network discovery against an authorized local network using Zenmap/Nmap.
+The first activity focused on studying the structure of the target, identifying the public information of the target and the type of firewall protecting the target....and so more.
+The second activity
+
+The assessment demonstrates how an attacker could begin building an understanding of an environment before attempting further security testing. The findings identified several areas that could provide useful reconnaissance information to an attacker, although these observations do not independently confirm the presence of exploitable vulnerabilities.
+---
+
+## 🎯 Lab Objectives
 
 The main objectives of this project are to:
 
-- Install and configure VirtualBox.
-- Install/import Kali Linux as a virtual machine.
-- Create a private **NAT Network** for the cybersecurity lab.
-- Configure network connectivity for Kali Linux.
-- Assign a consistent IP address to the Kali VM.
-- Verify network connectivity and DNS resolution.
-- Take a clean VM snapshot for recovery.
-- Document the complete setup process.
-- Prepare the environment for future cybersecurity projects.
+- Understand the footprinting phase of a penetration test.
+- Identify publicly available information associated with a domain.
+- Determine the technologies and services exposed by a web application.
+- Identify whether a Web Application Firewall is present.
+- Understand the importance of performing reconnaissance and scanning only within an authorized scope.
 
 ---
 
-## 🛡️ Purpose of the Lab
+## ⚙️ Tools and Technologies
 
 The lab provides an isolated and controlled environment for cybersecurity learning and authorized security testing.
 
-It can be used for activities such as:
+|  Tool       | Purpose |
+| ------------------ | ------------------  |
+|  Kali Linux        | This was the footprinting test environment       |
+| WHOIS      | Provided all the publicly available information like the domain name, registrar URL, creation date etc               |
+| whatweb      | Fingerprint web technologies (server, CMS, plugins, IP).    |
+| nslookup     | Used for DNS and IP identification  |
+| curl     | HTTP header information  |
+| wafw00f       | Used to detect and identify the firewall used in a server          |
+| dnsrecon | All DNS records        |
+| Windows CMD |        |
+| Zenmap |        |
+| Nmap |       |
 
-- Network reconnaissance
-- Port scanning
-- Vulnerability assessment
-- Packet analysis
-- Web security testing
-- Exploitation practice
-- Security-tool experimentation
+---
 
-⚠️ **Important:** This laboratory must only be used for systems that you own or have explicit permission to test. Do not use the lab or its tools to attack unauthorized systems.
+## 1️⃣ Footprinting usinf Multiple Kali Linux Tools
+
+1. **WHOIS**: The command returned publicly available registration and domain infrastructure information, including details relating to the domain's registration and nameserver configuration. WHOIS information can assist an attacker during the reconnaissance phase by providing information about domain infrastructure and associated administrative or technical details.
+COMMAND: whois networkwalks
+<img width="761" height="582" alt="whois snapshot" src="https://github.com/user-attachments/assets/f7ecfb85-5d02-44a5-8634-594c414b541c" />
+
+2.** whatweb**: The scan identified web technologies associated with the website. It showed that the networkwalks webpage moved from http to https and it is currently on the Apache server, country is the United states, general information about the technology used.
+COMMAND: whatweb networkwalks.com
+<img width="717" height="582" alt="whatweb result" src="https://github.com/user-attachments/assets/5ffd6011-cf6c-4aee-b318-60bea133ab07" />
+
+3. **nslookup**: This tool was used to locate the domain name, server address and the IP address associated with the target. Identifying the IP address associated with a domain provides information about the infrastructure hosting the service.
+COMMAND: nslookup networkwalks.com
+<img width="705" height="576" alt="nslookup result" src="https://github.com/user-attachments/assets/c6be6ecb-6b7f-4f26-a183-92be81bcbfac" />
+
+4. **Curl**: Was used to identify the HTTP response header returned by the target.
+COMMAND: curl -I https://networkwalks.com
+<img width="725" height="632" alt="curl result" src="https://github.com/user-attachments/assets/9956507c-30e7-4348-93d5-6aff2f81d839" />
+
+5. **wafw00f**: This tool is used to see if the target is protected by any form of firewall and what type of firewall that would be. Identifying a WAF provides information about the defensive architecture of a web application. Although the presence of a WAF is generally a positive security control, revealing its technology can help an attacker understand the environment.
+COMMAND: wafw00f https://networkwalks.com
+<img width="744" height="619" alt="wafw00f result" src="https://github.com/user-attachments/assets/2d28d202-4c5a-4b12-90e9-2b437b95828b" />
+
+6. **DNSRecon**: This tool provides publicly available information on the DNS records. DNS information can help construct an infrastructure profile. For example, mail records can identify email infrastructure while TXT records may reveal configuration information or third-party services. DNS records should therefore be reviewed regularly to ensure that unnecessary information is not exposed.
+COMMAND: dnsrecon -d networkwalks.com
+<img width="814" height="610" alt="dnsrecon" src="https://github.com/user-attachments/assets/fe40f383-6b72-4463-93cc-a3e39a2e437e" />
+
+---
+
+## 2️⃣ Lab Objectives
+
+The main objectives of this project are to:
+
+- Understand the footprinting phase of a penetration test.
+- Identify publicly available information associated with a domain.
+- Determine the technologies and services exposed by a web application.
+- Identify whether a Web Application Firewall is present.
+- Understand the importance of performing reconnaissance and scanning only within an authorized scope.
+
+---
+
+---
+
+## 🎯 Lab Objectives
+
+The main objectives of this project are to:
+
+- Understand the footprinting phase of a penetration test.
+- Identify publicly available information associated with a domain.
+- Determine the technologies and services exposed by a web application.
+- Identify whether a Web Application Firewall is present.
+- Understand the importance of performing reconnaissance and scanning only within an authorized scope.
+
+---
+
+---
+
+## 🎯 Lab Objectives
+
+The main objectives of this project are to:
+
+- Understand the footprinting phase of a penetration test.
+- Identify publicly available information associated with a domain.
+- Determine the technologies and services exposed by a web application.
+- Identify whether a Web Application Firewall is present.
+- Understand the importance of performing reconnaissance and scanning only within an authorized scope.
+
+---
+
+---
+
+## 🎯 Lab Objectives
+
+The main objectives of this project are to:
+
+- Understand the footprinting phase of a penetration test.
+- Identify publicly available information associated with a domain.
+- Determine the technologies and services exposed by a web application.
+- Identify whether a Web Application Firewall is present.
+- Understand the importance of performing reconnaissance and scanning only within an authorized scope.
+
+---
+
+---
+
+## 🎯 Lab Objectives
+
+The main objectives of this project are to:
+
+- Understand the footprinting phase of a penetration test.
+- Identify publicly available information associated with a domain.
+- Determine the technologies and services exposed by a web application.
+- Identify whether a Web Application Firewall is present.
+- Understand the importance of performing reconnaissance and scanning only within an authorized scope.
+
+---
