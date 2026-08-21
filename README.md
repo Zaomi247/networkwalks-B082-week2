@@ -84,104 +84,136 @@ The lab provides an isolated and controlled environment for cybersecurity learni
 | curl     | HTTP header information  |
 | wafw00f       | Used to detect and identify the firewall used in a server          |
 | dnsrecon | All DNS records        |
-| Windows CMD |        |
-| Zenmap |        |
-| Nmap |       |
+| Windows CMD |  To locate local IP      |
+| Zenmap |   Graphical Nmap interface for network discovery     |
+| Nmap |   Host discovery and network scanning    |
 
 ---
 
 ## 1️⃣ Footprinting usinf Multiple Kali Linux Tools
 
 1. **WHOIS**: The command returned publicly available registration and domain infrastructure information, including details relating to the domain's registration and nameserver configuration. WHOIS information can assist an attacker during the reconnaissance phase by providing information about domain infrastructure and associated administrative or technical details.
-COMMAND: whois networkwalks
+   _COMMAND_: **whois networkwalks**
 <img width="761" height="582" alt="whois snapshot" src="https://github.com/user-attachments/assets/f7ecfb85-5d02-44a5-8634-594c414b541c" />
 
-2.** whatweb**: The scan identified web technologies associated with the website. It showed that the networkwalks webpage moved from http to https and it is currently on the Apache server, country is the United states, general information about the technology used.
-COMMAND: whatweb networkwalks.com
+2. **whatweb** : The scan identified web technologies associated with the website. It showed that the networkwalks webpage moved from http to https and it is currently on the Apache server, country is the United states, general information about the technology used.
+   _COMMAND_: **whatweb networkwalks.com**
 <img width="717" height="582" alt="whatweb result" src="https://github.com/user-attachments/assets/5ffd6011-cf6c-4aee-b318-60bea133ab07" />
 
 3. **nslookup**: This tool was used to locate the domain name, server address and the IP address associated with the target. Identifying the IP address associated with a domain provides information about the infrastructure hosting the service.
-COMMAND: nslookup networkwalks.com
+   _COMMAND_: **nslookup networkwalks.com**
 <img width="705" height="576" alt="nslookup result" src="https://github.com/user-attachments/assets/c6be6ecb-6b7f-4f26-a183-92be81bcbfac" />
 
 4. **Curl**: Was used to identify the HTTP response header returned by the target.
-COMMAND: curl -I https://networkwalks.com
+   _COMMAND_: **curl -I https://networkwalks.com**
 <img width="725" height="632" alt="curl result" src="https://github.com/user-attachments/assets/9956507c-30e7-4348-93d5-6aff2f81d839" />
 
 5. **wafw00f**: This tool is used to see if the target is protected by any form of firewall and what type of firewall that would be. Identifying a WAF provides information about the defensive architecture of a web application. Although the presence of a WAF is generally a positive security control, revealing its technology can help an attacker understand the environment.
-COMMAND: wafw00f https://networkwalks.com
+   _COMMAND_: **wafw00f https://networkwalks.com**
 <img width="744" height="619" alt="wafw00f result" src="https://github.com/user-attachments/assets/2d28d202-4c5a-4b12-90e9-2b437b95828b" />
 
 6. **DNSRecon**: This tool provides publicly available information on the DNS records. DNS information can help construct an infrastructure profile. For example, mail records can identify email infrastructure while TXT records may reveal configuration information or third-party services. DNS records should therefore be reviewed regularly to ensure that unnecessary information is not exposed.
-COMMAND: dnsrecon -d networkwalks.com
+   _COMMAND_: **dnsrecon -d networkwalks.com**
 <img width="814" height="610" alt="dnsrecon" src="https://github.com/user-attachments/assets/fe40f383-6b72-4463-93cc-a3e39a2e437e" />
 
 ---
 
-## 2️⃣ Lab Objectives
+## 2️⃣ Network Scanning with Zenmap
 
-The main objectives of this project are to:
+Task 1: Download & install Zenmap from official website on your Windows PC
 
-- Understand the footprinting phase of a penetration test.
-- Identify publicly available information associated with a domain.
-- Determine the technologies and services exposed by a web application.
-- Identify whether a Web Application Firewall is present.
-- Understand the importance of performing reconnaissance and scanning only within an authorized scope.
+<img width="495" height="391" alt="nmap download" src="https://github.com/user-attachments/assets/8a67c02f-ae08-4a58-ac3d-661225cc3936" />
 
----
+Task 2: Find your local IP address & your LAN subnet
 
----
+<img width="641" height="205" alt="image" src="https://github.com/user-attachments/assets/33346d18-2d4c-4115-867b-8afc15bc49e6" />
 
-## 🎯 Lab Objectives
+Task 3: Find the list of live hosts/PC’s in your IP subnet
 
-The main objectives of this project are to:
+Task 4: How many hosts are live in your subnet? _3 HOSTS INCLUDING PC_
 
-- Understand the footprinting phase of a penetration test.
-- Identify publicly available information associated with a domain.
-- Determine the technologies and services exposed by a web application.
-- Identify whether a Web Application Firewall is present.
-- Understand the importance of performing reconnaissance and scanning only within an authorized scope.
+Task 5: What are the IP addresses of the live hosts?
 
----
+Task 6: What are the MAC addresses of the live hosts?
 
----
+Task 7: Display & save the output topology in PDF Format on your desktop
 
-## 🎯 Lab Objectives
+<img width="534" height="392" alt="image" src="https://github.com/user-attachments/assets/4566da45-80de-4423-8feb-4dce34173cb8" />
 
-The main objectives of this project are to:
 
-- Understand the footprinting phase of a penetration test.
-- Identify publicly available information associated with a domain.
-- Determine the technologies and services exposed by a web application.
-- Identify whether a Web Application Firewall is present.
-- Understand the importance of performing reconnaissance and scanning only within an authorized scope.
+I used Zenmap to perform network discovery on my local network. The practical required me to identify my local IP address and subnet, discover live hosts, identify their IP and MAC addresses, and generate a network topology.
+I first used the Windows ipconfig command to identify my local IP address and LAN subnet. I then
+entered the subnet into Zenmap and selected Ping Scan to identify active hosts.
 
 ---
 
+## Findings & Risk Analysis
+
+The following findings represent observations made during the reconnaissance and network discovery exercises.
+They should not be interpreted as confirmed vulnerabilities unless additional testing validates a security weakness.
+
+| ✅ Finding                        | 🧾 Evidence                      | 🎯 Potential Impact              |
+| ----------------------------- | ------------------------------- | ------------------------------- |
+| Web technology information exposed          | WhatWeb                      | May assist attackers in identifying technologies requiring further security review       |
+| Public server IP identifiable               | Nslookup                | Provides information about hosting/network infrastructure              |
+| HTTP technical information exposed | Curl                  | May assist application and technology fingerprinting             |
+| WAF technology identifiable        | Wafw00f     | Reveals information about defensive architecture                 |
+| DNS infrastructure information exposed                | DNSRecon                | Can assist broader infrastructure reconnaissance        |
+| Multiple live hosts identified            | Zenmap | Unexpected devices may increase the attack surface |
+
 ---
 
-## 🎯 Lab Objectives
+## 📝 Recommendation 
 
-The main objectives of this project are to:
+Based on the observations made during the lab, the following security improvements are recommended:
 
-- Understand the footprinting phase of a penetration test.
-- Identify publicly available information associated with a domain.
-- Determine the technologies and services exposed by a web application.
-- Identify whether a Web Application Firewall is present.
-- Understand the importance of performing reconnaissance and scanning only within an authorized scope.
+1. Minimize unnecessary information exposure
+
+Review publicly accessible web server, CMS, plugin, and HTTP information and remove unnecessary technical details where practical.
+
+2. Maintain software securely
+
+Keep WordPress, plugins, web servers, operating systems, and other exposed technologies updated according to the organization's patch-management process.
+
+3. Review HTTP security configuration
+
+Regularly review HTTP response headers and web server configuration to identify unnecessary information disclosure.
+
+4. Review public DNS records
+
+Perform periodic DNS reviews to ensure that obsolete, unnecessary, or unintended records are removed.
+
+5. Maintain WAF protection
+
+Keep the WAF enabled and properly configured. Monitor WAF events and periodically review its effectiveness.
+
+6. Maintain an internal asset inventory
+
+Organizations should maintain an up-to-date list of authorized network devices.
+
+7. Investigate unknown hosts
+
+Unexpected devices discovered during internal network scans should be identified and verified.
+
+8. Segment critical systems
+
+Where appropriate, sensitive systems should be isolated using network segmentation and access controls.
+
+9. Perform periodic authorized assessments: Reconnaissance, network discovery, vulnerability assessment, and penetration testing should be performed periodically within a clearly defined and authorized scope.
 
 ---
 
----
+## 🔚 Conclusion 
 
-## 🎯 Lab Objectives
+The Week 2 practical provided hands-on experience with two fundamental areas of penetration testing: reconnaissance and network discovery.
 
-The main objectives of this project are to:
+During the reconnaissance phase, WHOIS, WhatWeb, Nslookup, Curl, Wafw00f, and DNSRecon were used to collect information about the authorized domain. The exercise demonstrated how information such as domain infrastructure, DNS records, web technologies, HTTP headers, and WAF technologies can contribute to an attacker's understanding of a target.
 
-- Understand the footprinting phase of a penetration test.
-- Identify publicly available information associated with a domain.
-- Determine the technologies and services exposed by a web application.
-- Identify whether a Web Application Firewall is present.
-- Understand the importance of performing reconnaissance and scanning only within an authorized scope.
+During the internal network discovery phase, Windows networking commands and Zenmap were used to identify the local network configuration and discover active hosts. The results were then used to create a basic network topology.
 
+An important lesson from the exercise was that information gathered during reconnaissance is not automatically a vulnerability. Technology versions, IP addresses, DNS records, and discovered hosts are observations that may become security concerns depending on how the underlying systems are configured.
+
+The exercise also demonstrated the importance of documenting security testing clearly. A professional penetration-testing report should explain the scope, methodology, evidence, observations, potential impact, risk level, recommendations, and limitations.
+
+Overall, the lab provided practical experience with the reconnaissance stage of a penetration test and demonstrated why careful information gathering is an important step before vulnerability validation and exploitation.
 ---
